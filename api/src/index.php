@@ -12,6 +12,7 @@ try {
     require_once 'api.php';
 
     require_once __DIR__ . '/methods/status.php';
+    require_once __DIR__ . '/methods/users/registration.php';
 
     if (!array_key_exists("method", $_GET)) {
         throw new Exception("Method not specified");
