@@ -1,23 +1,28 @@
 <?php
 
-class API {
-    private array $methods = Array();
+class API
+{
+    private array $methods = [];
 
-    function response(object $param): void {
-        echo json_encode($param);
+    function response(object $response): void
+    {
+        $obj = (object) array('response' => $response);
+        echo json_encode($obj);
     }
 
-    function addMethod(string $method, $handler): void {
-        $newMethod = array($method, $handler);
+    function addMethod(string $method, $handler, array $requiredParams = []): void
+    {
+        $newMethod = array($method, $handler, $requiredParams);
         array_push($this->methods, $newMethod);
     }
 
-    function findMethod(string $method) {
+    function findMethod(string $method)
+    {
         $handlerIndex = array_search($method, array_column($this->methods, 0));
         if ($handlerIndex === false) {
             throw new Exception("Method {$method} not found");
         } else {
-            return $this->methods[$handlerIndex][1];
+            return $this->methods[$handlerIndex];
         }
     }
 }
