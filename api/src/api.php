@@ -20,7 +20,7 @@ class API
     {
         $handlerIndex = array_search($method, array_column($this->methods, 0));
         if ($handlerIndex === false) {
-            throw new Exception("Method {$method} not found");
+            throw new APIException(4, "Method {$method} not found");
         } else {
             return $this->methods[$handlerIndex];
         }

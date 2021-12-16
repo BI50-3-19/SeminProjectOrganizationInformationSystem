@@ -22,7 +22,7 @@ $api->addMethod("users.registration", function () use ($loginPattern, $passwordP
     $password = $_GET["password"];
 
     if (preg_match($loginPattern, $login) === 0 || preg_match($passwordPattern, $password) === 0) {
-        throw new Exception("Login or password does not meet security requirements");
+        throw new APIException(5);
     }
 
     $randomSalt = generateSalt();
@@ -36,9 +36,9 @@ $api->addMethod("users.registration", function () use ($loginPattern, $passwordP
     if (!$command->execute()) {
         $error = $command->error;
         if (str_contains($error, "Duplicate entry")) {
-            throw new Exception("A user with this name already exists");
+            throw new APIException(6);
         } else {
-            throw new Exception("Unhandled exception, contact your system administrator");
+            throw new APIException(1);
         }
     }
 

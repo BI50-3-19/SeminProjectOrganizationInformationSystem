@@ -11,7 +11,7 @@ $api->addMethod("users.login", function () use ($loginPattern, $passwordPattern,
     $password = $_GET["password"];
 
     if (preg_match($loginPattern, $login) === 0 || preg_match($passwordPattern, $password) === 0) {
-        throw new Exception("Login or password does not meet security requirements");
+        throw new APIException("Login or password does not meet security requirements");
     }
 
     $query = "SELECT passwordSalt FROM users WHERE login=?";
@@ -19,13 +19,13 @@ $api->addMethod("users.login", function () use ($loginPattern, $passwordPattern,
     $command->bind_param("s", $login);
 
     if (!$command->execute()) {
-        throw new Exception("Unhandled exception, contact your system administrator");
+        throw new APIException(1);
     }
 
     $result = $command->get_result();
 
     if (mysqli_num_rows($result) === 0) {
-        throw new Exception("Login or password is incorrect");
+        throw new APIException(7);
     }
 
     $staticSalt = $_ENV['STATIC_PASSWORD_SALT'];
@@ -37,13 +37,13 @@ $api->addMethod("users.login", function () use ($loginPattern, $passwordPattern,
     $command->bind_param("ss", $login, $passwordHash);
 
     if (!$command->execute()) {
-        throw new Exception("Unhandled exception, contact your system administrator");
+        throw new APIException(1);
     }
 
     $result = $command->get_result();
 
     if (mysqli_num_rows($result) === 0) {
-        throw new Exception("Login or password is incorrect");
+        throw new APIException(7);
     }
 
     $user = $result->fetch_assoc();
