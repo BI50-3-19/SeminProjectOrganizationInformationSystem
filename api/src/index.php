@@ -19,6 +19,7 @@ try {
     require_once __DIR__ . '/methods/users/registration.php';
 
     require_once __DIR__ . '/methods/sessions/create.php';
+    require_once __DIR__ . '/methods/sessions/reset.php';
     require_once __DIR__ . '/methods/sessions/info.php';
 
     if (!array_key_exists("method", $_GET)) {

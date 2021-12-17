@@ -4,7 +4,7 @@ class API
 {
     private array $methods = [];
 
-    function response(object | array $response): void
+    function response(object | array | int $response): void
     {
         $obj = (object) array('response' => $response);
         echo json_encode($obj);
