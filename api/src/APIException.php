@@ -10,7 +10,8 @@ class APIException extends Exception
         4 => "Method not found",
         5 => "Login or password does not meet security requirements",
         6 => "A user with this login already exists",
-        7 => "Login or password is incorrect"
+        7 => "Login or password is incorrect",
+        8 => "Token is invalid"
     );
 
     public int $apiErrorCode;
