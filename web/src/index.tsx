@@ -1,13 +1,15 @@
 import ReactDOM from "react-dom";
 import MainPage from "./Pages/Main";
 
-import { AdaptivityProvider, ConfigProvider } from "@vkontakte/vkui";
+import { AppRoot, AdaptivityProvider, ConfigProvider } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 
 ReactDOM.render(
-	<ConfigProvider>
+	<ConfigProvider scheme="space_gray">
 		<AdaptivityProvider>
-			<MainPage />
+			<AppRoot>
+				<MainPage />
+			</AppRoot>
 		</AdaptivityProvider>
 	</ConfigProvider>,
 	document.getElementById("root"),
