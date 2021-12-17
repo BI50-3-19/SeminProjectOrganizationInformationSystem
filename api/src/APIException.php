@@ -44,9 +44,4 @@ class APIException extends Exception
     {
         return self::ERRORS;
     }
-
-    public function __toString()
-    {
-        return __CLASS__ . "Error: ";
-    }
 }
