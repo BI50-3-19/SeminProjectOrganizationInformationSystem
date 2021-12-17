@@ -11,7 +11,7 @@ $api->addMethod("users.login", function () use ($loginPattern, $passwordPattern,
     $password = $_GET["password"];
 
     if (preg_match($loginPattern, $login) === 0 || preg_match($passwordPattern, $password) === 0) {
-        throw new APIException("Login or password does not meet security requirements");
+        throw new APIException(5);
     }
 
     $query = "SELECT passwordSalt FROM users WHERE login=?";
