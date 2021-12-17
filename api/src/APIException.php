@@ -2,7 +2,7 @@
 
 class APIException extends Exception
 {
-    private const ERRORS = array(
+    public const ERRORS = array(
         0 => "Unprocessed error, contact your system administrator",
         1 => "Unhandled exception, contact your system administrator",
         2 => "Method not specified",
