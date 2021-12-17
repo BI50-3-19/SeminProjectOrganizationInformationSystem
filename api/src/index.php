@@ -15,7 +15,6 @@ try {
     require_once __DIR__ . '/methods/status.php';
     require_once __DIR__ . '/methods/errors.php';
     require_once __DIR__ . '/methods/users/registration.php';
-    require_once __DIR__ . '/methods/users/login.php';
 
     if (!array_key_exists("method", $_GET)) {
         throw new APIException(2);
