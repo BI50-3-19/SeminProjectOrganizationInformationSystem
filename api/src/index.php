@@ -40,21 +40,21 @@ try {
     return $api->response($handler());
 } catch (APIException $error) {
     $response = (object) array(
-        'error' => $error->getMessage(),
-        'error_code' => $error->apiErrorCode,
+        'message' => $error->getMessage(),
+        'code' => $error->apiErrorCode,
         'request_params' => array_map(function ($param) {
             return (object) array('key' => $param, 'value' => $_GET[$param]);
         }, array_keys($_GET))
     );
-    return $api->response($response);
+    echo json_encode((object) array('error' => $response));
 } catch (Exception $err) {
     $error = new APIException(0, $err->getMessage());
     $response = (object) array(
-        'error' => $error->getError(),
-        'error_code' => $error->apiErrorCode,
+        'message' => $error->getError(),
+        'code' => $error->apiErrorCode,
         'request_params' => array_map(function ($param) {
             return (object) array('key' => $param, 'value' => $_GET[$param]);
         }, array_keys($_GET))
     );
-    return $api->response($response);
+    echo json_encode((object) array('error' => $response));
 }
