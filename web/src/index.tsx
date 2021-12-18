@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
+import { useCookies } from "react-cookie";
+
 import MainPage from "./Pages/Main";
 
 import {
@@ -17,9 +19,15 @@ if (process.env.NODE_ENV === "production") {
 }
 
 function App(): JSX.Element {
+	const [cookies] = useCookies(["theme"]);
+
 	const [theme, setTheme] = useState<"space_gray" | "bright_light">(
 		"space_gray",
 	);
+
+	useEffect(() => {
+		setTheme(cookies.theme || "space_gray");
+	}, [cookies.theme]);
 
 	return (
 		<ConfigProvider scheme={theme} webviewType={WebviewType.INTERNAL}>

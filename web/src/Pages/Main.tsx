@@ -1,4 +1,5 @@
 import React from "react";
+import { useCookies } from "react-cookie";
 import {
 	View,
 	Panel,
@@ -34,13 +35,18 @@ const HeaderButtons = ({
 	setTheme: React.Dispatch<React.SetStateAction<"space_gray" | "bright_light">>;
 	theme: "space_gray" | "bright_light";
 }) => {
+	const [, setCookie] = useCookies(["theme"]);
+
 	return (
 		<React.Fragment>
 			<PanelHeaderButton
 				aria-label="Сменить тему"
-				onClick={() =>
-					setTheme(theme === "bright_light" ? "space_gray" : "bright_light")
-				}
+				onClick={() => {
+					const newTheme =
+						theme === "bright_light" ? "space_gray" : "bright_light";
+					setTheme(newTheme);
+					setCookie("theme", newTheme, { path: "/" });
+				}}
 			>
 				{theme === "bright_light" ? (
 					<Icon28MoonOutline />
