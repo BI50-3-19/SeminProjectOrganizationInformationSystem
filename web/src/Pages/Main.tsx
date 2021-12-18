@@ -28,6 +28,7 @@ import {
 } from "@vkontakte/icons";
 
 import NewsList from "./News";
+import AboutPage from "./About";
 
 const HeaderButtons = ({
 	setTheme,
@@ -228,9 +229,7 @@ function MainPage({
 								О компании
 							</PanelHeader>
 							<Group style={{ height: "1000px" }}>
-								<Placeholder
-									icon={<Icon28InfoCircleOutline width={56} height={56} />}
-								></Placeholder>
+								<AboutPage />
 							</Group>
 						</Panel>
 					</View>
