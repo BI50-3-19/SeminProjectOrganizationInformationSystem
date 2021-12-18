@@ -18,7 +18,7 @@ const AboutPage = (): JSX.Element => {
 			</Text>
 			<Spacing size={16} />
 			<Group>
-				<Link href="https://google.com" target="_blank">
+				<Link href="https://vk.com/rus_cybersquatter" target="_blank">
 					<CellButton before={<Icon28LogoVk />}>Мы ВКонтакте</CellButton>
 				</Link>
 			</Group>
