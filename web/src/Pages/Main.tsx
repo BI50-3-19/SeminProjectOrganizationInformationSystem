@@ -219,7 +219,7 @@ function MainPage({
 							>
 								Новости компании
 							</PanelHeader>
-							<Group style={{ height: "1000px" }} children={NewsList} />
+							<Group children={NewsList} />
 						</Panel>
 					</View>
 					<View id="profile" activePanel="profile">
@@ -229,7 +229,7 @@ function MainPage({
 							>
 								Профиль
 							</PanelHeader>
-							<Group style={{ height: "1000px" }}>
+							<Group >
 								<ProfilePage />
 							</Group>
 						</Panel>
@@ -241,7 +241,7 @@ function MainPage({
 							>
 								О компании
 							</PanelHeader>
-							<Group style={{ height: "1000px" }}>
+							<Group >
 								<AboutPage />
 							</Group>
 						</Panel>
