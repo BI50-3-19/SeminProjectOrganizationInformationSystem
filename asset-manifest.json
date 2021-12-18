@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/SeminProjectOrganizationInformationSystem/static/css/main.d060901e.css",
-    "main.js": "/SeminProjectOrganizationInformationSystem/static/js/main.92fa7489.js",
+    "main.js": "/SeminProjectOrganizationInformationSystem/static/js/main.ae618822.js",
     "index.html": "/SeminProjectOrganizationInformationSystem/index.html",
     "main.d060901e.css.map": "/SeminProjectOrganizationInformationSystem/static/css/main.d060901e.css.map",
-    "main.92fa7489.js.map": "/SeminProjectOrganizationInformationSystem/static/js/main.92fa7489.js.map"
+    "main.ae618822.js.map": "/SeminProjectOrganizationInformationSystem/static/js/main.ae618822.js.map"
   },
   "entrypoints": [
     "static/css/main.d060901e.css",
-    "static/js/main.92fa7489.js"
+    "static/js/main.ae618822.js"
   ]
 }
