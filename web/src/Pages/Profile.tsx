@@ -1,17 +1,19 @@
 import React from "react";
-import { Button, Text, Div, Placeholder } from "@vkontakte/vkui";
+import { Button, Text, Div, Placeholder, withAdaptivity, ViewWidth } from "@vkontakte/vkui";
 import { Icon56GhostOutline } from "@vkontakte/icons";
 
-const ProfilePage = (): JSX.Element => {
+const ProfilePage = ({ viewWidth }: { viewWidth: number; }): JSX.Element => {
+	const isDesktop = viewWidth >= ViewWidth.TABLET;
 	const [isLoggedIn] = React.useState<boolean>(false);
 
 	if (!isLoggedIn) {
 		return (
 			<Placeholder
+				stretched={!isDesktop}
 				icon={<Icon56GhostOutline />}
 				header="Вы не авторизованы"
 				action={
-					<Button size="m" mode="commerce">
+					<Button size="m" mode="primary">
 						Авторизоваться
 					</Button>
 				}
@@ -28,4 +30,6 @@ const ProfilePage = (): JSX.Element => {
 	);
 };
 
-export default ProfilePage;
+const AdaptivityProfilePage = withAdaptivity(ProfilePage, { viewWidth: true });
+
+export default AdaptivityProfilePage;

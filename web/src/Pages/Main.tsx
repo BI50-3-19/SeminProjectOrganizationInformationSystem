@@ -198,8 +198,8 @@ function MainPage({
 			<SplitCol
 				animate={!isDesktop}
 				spaced={isDesktop}
-				width={isDesktop ? "560px" : "100%"}
-				maxWidth={isDesktop ? "560px" : "100%"}
+				width={isDesktop ? "600px" : "100%"}
+				maxWidth={isDesktop ? "600px" : "100%"}
 			>
 				<Epic
 					activeStory={activeStory}
@@ -230,7 +230,7 @@ function MainPage({
 								Профиль
 							</PanelHeader>
 							<Group >
-								<ProfilePage />
+								<ProfilePage viewWidth={0}/>
 							</Group>
 						</Panel>
 					</View>
