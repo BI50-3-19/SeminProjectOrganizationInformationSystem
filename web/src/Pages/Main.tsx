@@ -60,7 +60,7 @@ const HeaderButtons = ({
 	);
 };
 
-const DesktopPage = ({
+const DesktopNavBar = ({
 	activeStory,
 	hasHeader,
 	onStoryChange,
@@ -128,6 +128,43 @@ const DesktopPage = ({
 	);
 };
 
+const MobileNavBar = ({
+	onStoryChange,
+	activeStory,
+}: {
+	activeStory: string;
+	onStoryChange: React.MouseEventHandler<HTMLElement>;
+}) => {
+	return (
+		<Tabbar>
+			<TabbarItem
+				onClick={onStoryChange}
+				selected={activeStory === "feed"}
+				data-story="feed"
+				text="Новости компании"
+			>
+				<Icon28NewsfeedOutline />
+			</TabbarItem>
+			<TabbarItem
+				onClick={onStoryChange}
+				selected={activeStory === "profile"}
+				data-story="profile"
+				text="Профиль"
+			>
+				<Icon28UserCircleOutline />
+			</TabbarItem>
+			<TabbarItem
+				onClick={onStoryChange}
+				selected={activeStory === "about"}
+				data-story="about"
+				text="О компании"
+			>
+				<Icon28InfoCircleOutline />
+			</TabbarItem>
+		</Tabbar>
+	);
+};
+
 function MainPage({
 	setTheme,
 	theme,
@@ -151,7 +188,7 @@ function MainPage({
 			style={{ justifyContent: "center" }}
 		>
 			{isDesktop && (
-				<DesktopPage
+				<DesktopNavBar
 					activeStory={activeStory}
 					hasHeader={hasHeader}
 					onStoryChange={onStoryChange}
@@ -168,32 +205,10 @@ function MainPage({
 					activeStory={activeStory}
 					tabbar={
 						!isDesktop && (
-							<Tabbar>
-								<TabbarItem
-									onClick={onStoryChange}
-									selected={activeStory === "feed"}
-									data-story="feed"
-									text="Новости компании"
-								>
-									<Icon28NewsfeedOutline />
-								</TabbarItem>
-								<TabbarItem
-									onClick={onStoryChange}
-									selected={activeStory === "profile"}
-									data-story="profile"
-									text="Профиль"
-								>
-									<Icon28UserCircleOutline />
-								</TabbarItem>
-								<TabbarItem
-									onClick={onStoryChange}
-									selected={activeStory === "about"}
-									data-story="about"
-									text="О компании"
-								>
-									<Icon28InfoCircleOutline />
-								</TabbarItem>
-							</Tabbar>
+							<MobileNavBar
+								activeStory={activeStory}
+								onStoryChange={onStoryChange}
+							/>
 						)
 					}
 				>
