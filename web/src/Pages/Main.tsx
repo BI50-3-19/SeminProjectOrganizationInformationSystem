@@ -24,6 +24,7 @@ import {
 	Icon28MoonOutline,
 	Icon28NewsfeedOutline,
 	Icon28UserCircleOutline,
+	Icon28InfoCircleOutline,
 } from "@vkontakte/icons";
 
 import NewsList from "./News";
@@ -104,6 +105,22 @@ const DesktopPage = ({
 					>
 						Профиль
 					</Cell>
+					<Cell
+						disabled={activeStory === "about"}
+						style={
+							activeStory === "about"
+								? {
+										backgroundColor: "var(--button_secondary_background)",
+										borderRadius: 8,
+								  }
+								: {}
+						}
+						data-story="about"
+						onClick={onStoryChange}
+						before={<Icon28InfoCircleOutline />}
+					>
+						О компании
+					</Cell>
 				</Group>
 			</Panel>
 		</SplitCol>
@@ -167,6 +184,14 @@ function MainPage({
 								>
 									<Icon28UserCircleOutline />
 								</TabbarItem>
+								<TabbarItem
+									onClick={onStoryChange}
+									selected={activeStory === "about"}
+									data-story="about"
+									text="О компании"
+								>
+									<Icon28InfoCircleOutline />
+								</TabbarItem>
 							</Tabbar>
 						)
 					}
@@ -178,7 +203,7 @@ function MainPage({
 							>
 								Новости компании
 							</PanelHeader>
-							<Group style={{ height: "1000px" }}>{NewsList}</Group>
+							<Group style={{ height: "1000px" }} children={NewsList} />
 						</Panel>
 					</View>
 					<View id="profile" activePanel="profile">
@@ -191,6 +216,20 @@ function MainPage({
 							<Group style={{ height: "1000px" }}>
 								<Placeholder
 									icon={<Icon28UserCircleOutline width={56} height={56} />}
+								></Placeholder>
+							</Group>
+						</Panel>
+					</View>
+					<View id="about" activePanel="about">
+						<Panel id="about">
+							<PanelHeader
+								right={<HeaderButtons setTheme={setTheme} theme={theme} />}
+							>
+								О компании
+							</PanelHeader>
+							<Group style={{ height: "1000px" }}>
+								<Placeholder
+									icon={<Icon28InfoCircleOutline width={56} height={56} />}
 								></Placeholder>
 							</Group>
 						</Panel>
