@@ -17,6 +17,7 @@
 		"@vkontakte/icons": "^1.138.0",
 		"@vkontakte/vk-bridge": "^2.4.8",
 		"@vkontakte/vkui": "^4.23.0",
+		"axios": "^0.24.0",
 		"babel-jest": "^27.4.2",
 		"babel-loader": "^8.2.3",
 		"babel-plugin-named-asset-import": "^0.3.8",
