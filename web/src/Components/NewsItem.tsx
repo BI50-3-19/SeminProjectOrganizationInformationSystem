@@ -11,13 +11,17 @@ const NewsItem = ({
 	text: string;
 	date: Date;
 }): JSX.Element => {
-	const [showButtonEnabled, changeShowButtonStatus] =
-		React.useState<boolean>(true);
+	const [showButtonMode, changeShowButtonMode] = React.useState<boolean>(true);
 
 	const [showText, setShowText] = React.useState<string>();
 	const showButtonHandler = () => {
-		setShowText(text);
-		changeShowButtonStatus(false);
+		if (showButtonMode) {
+			changeShowButtonMode(false);
+			setShowText(text);
+		} else {
+			changeShowButtonMode(true);
+			setShowText(text.substring(0, text.indexOf(" ", 100)) + "...");
+		}
 	};
 
 	React.useEffect(() => {
@@ -42,9 +46,9 @@ const NewsItem = ({
 			<Div>
 				<Text weight="regular">{showText}</Text>
 			</Div>
-			{text.length > 100 && showButtonEnabled && (
+			{text.length > 100 && (
 				<CellButton onClick={showButtonHandler}>
-					Показать полностью...
+					{showButtonMode ? "Показать полностью..." : "Скрыть"}
 				</CellButton>
 			)}
 		</Group>
