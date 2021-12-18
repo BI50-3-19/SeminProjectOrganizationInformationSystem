@@ -25,6 +25,8 @@ import {
 	Icon28UserCircleOutline,
 } from "@vkontakte/icons";
 
+import NewsList from "./News";
+
 const HeaderButtons = ({
 	setTheme,
 	theme,
@@ -170,11 +172,7 @@ function MainPage({
 							>
 								Новости компании
 							</PanelHeader>
-							<Group style={{ height: "1000px" }}>
-								<Placeholder
-									icon={<Icon28UserCircleOutline width={56} height={56} />}
-								></Placeholder>
-							</Group>
+							<Group style={{ height: "1000px" }}>{NewsList}</Group>
 						</Panel>
 					</View>
 					<View id="profile" activePanel="profile">
