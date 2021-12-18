@@ -7,7 +7,6 @@ import {
 	PanelHeaderButton,
 	Epic,
 	Group,
-	Placeholder,
 	Tabbar,
 	TabbarItem,
 	usePlatform,
@@ -29,6 +28,7 @@ import {
 
 import NewsList from "./News";
 import AboutPage from "./About";
+import ProfilePage from "./Profile";
 
 const HeaderButtons = ({
 	setTheme,
@@ -215,9 +215,7 @@ function MainPage({
 								Профиль
 							</PanelHeader>
 							<Group style={{ height: "1000px" }}>
-								<Placeholder
-									icon={<Icon28UserCircleOutline width={56} height={56} />}
-								></Placeholder>
+								<ProfilePage />
 							</Group>
 						</Panel>
 					</View>
