@@ -10,6 +10,12 @@ import {
 } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 
+import lockDevTools from "./TS/devToolsLocker";
+
+if (process.env.NODE_ENV === "production") {
+	lockDevTools.enableLock();
+}
+
 function App(): JSX.Element {
 	const [theme, setTheme] = useState<"space_gray" | "bright_light">(
 		"space_gray",
@@ -19,7 +25,7 @@ function App(): JSX.Element {
 		<ConfigProvider scheme={theme} webviewType={WebviewType.INTERNAL}>
 			<AdaptivityProvider>
 				<AppRoot>
-					<MainPage theme={theme} setTheme={setTheme} />
+					<MainPage theme={theme} setTheme={setTheme} viewWidth={0} />
 				</AppRoot>
 			</AdaptivityProvider>
 		</ConfigProvider>
