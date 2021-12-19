@@ -52,7 +52,7 @@ class UsersAPI {
 
   public async get({
     token,
-  }: API.RequiredToken): Promise<API.Users.GetResponse> {
+  }: API.RequiredToken  = {}): Promise<API.Users.GetResponse> {
     const response = await this.api.call("users.get", {
       token: token || this.api.token || "",
     });
