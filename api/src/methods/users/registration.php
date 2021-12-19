@@ -29,9 +29,9 @@ $api->addMethod("users.registration", function () use ($loginPattern, $passwordP
     $staticSalt = $_ENV['STATIC_PASSWORD_SALT'];
     $passwordHash = hash("sha512", "{$password}_{$staticSalt}_{$randomSalt}");
 
-    $query = "INSERT INTO users (login, passwordHash, passwordSalt) VALUES (?, ?, ?)";
+    $query = "INSERT INTO users (login, passwordHash, passwordSalt, regDate) VALUES (?, ?, ?, ?)";
     $command = mysqli_prepare($db->connection, $query);
-    $command->bind_param("sss", $login, $passwordHash, $randomSalt);
+    $command->bind_param("ssss", $login, $passwordHash, $randomSalt, date('Y-m-d H:i:s'));
 
     if (!$command->execute()) {
         $error = $command->error;
