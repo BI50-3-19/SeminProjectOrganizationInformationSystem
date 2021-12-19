@@ -108,7 +108,7 @@ class SessionsAPI {
 
 class API {
 	private apiUrl =
-		"https://cors-anywhere.herokuapp.com/176.113.82.100/index.php";
+		"https://damp-badlands-20484.herokuapp.com/176.113.82.100/index.php";
 	public token?: string;
 	constructor({ apiUrl, token }: { apiUrl?: string; token?: string } = {}) {
 		if (apiUrl) {
