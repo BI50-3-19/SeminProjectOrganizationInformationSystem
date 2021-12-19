@@ -29,8 +29,18 @@ class APIError extends Error {
 	}
 }
 
+class UsersAPI {
+	constructor(private api: API) { }
+	
+	public async registration({ login, password }: API.Users.RegistrationParams) {
+		return this.api.call("users.get", { login, password });
+	}
+}
+
 class API {
-	constructor(private apiUrl = "http://176.113.82.100/index.php") {}
+	constructor(private apiUrl = "http://176.113.82.100/index.php") { }
+	
+	public users = new UsersAPI(this);
 
 	public async call(method: string, params: Record<string, string> = {}) {
 		const response = await axios.get(this.apiUrl, {
