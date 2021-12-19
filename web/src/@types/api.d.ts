@@ -9,4 +9,32 @@ declare namespace API {
             password: string;
         }
     }
+
+    namespace Sessions {
+        interface CreateParams {
+            login: string;
+            password: string;
+        }
+
+        interface CreateResponse {
+            login: string;
+            token: string;
+            created: Date;
+        }
+
+        interface InfoParams {
+            token?: string;
+        }
+
+        interface InfoResponse {
+            id: number;
+            login: string;
+            created: Date;
+            ip: string;
+        }
+
+        interface ResetParams {
+            token?: string;
+        }
+    }
 }
