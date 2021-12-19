@@ -15,6 +15,7 @@ import {
 import { Icon56GhostOutline } from "@vkontakte/icons";
 
 import API, { APIError } from "../../TS/api";
+import { useCookies } from "react-cookie";
 
 const AuthorizationPage = ({
   isRegister,
@@ -28,6 +29,7 @@ const AuthorizationPage = ({
   setPopout: React.Dispatch<React.SetStateAction<JSX.Element | null>>;
   setSessionToken: React.Dispatch<React.SetStateAction<string | null>>;
 }): JSX.Element => {
+  const [, setCookie] = useCookies(["token"]);
   const [login, setLogin] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
   const [secondPassword, setSecondPassword] = React.useState<string>("");
@@ -108,6 +110,7 @@ const AuthorizationPage = ({
           .catch(apiErrorHandler);
         if (session) {
           setSessionToken(session.token);
+          setCookie("token", session.token);
         }
       }
     } else {
@@ -116,6 +119,7 @@ const AuthorizationPage = ({
         .catch(apiErrorHandler);
       if (session) {
         setSessionToken(session.token);
+        setCookie("token", session.token);
       }
     }
 

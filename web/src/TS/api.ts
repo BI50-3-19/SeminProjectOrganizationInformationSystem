@@ -85,7 +85,7 @@ class SessionsAPI {
 
   public async info({
     token,
-  }: API.RequiredToken): Promise<API.Sessions.InfoResponse> {
+  }: API.RequiredToken = {}): Promise<API.Sessions.InfoResponse> {
     const response = await this.api.call("sessions.info", {
       token: token || this.api.token || "",
     });
@@ -107,10 +107,16 @@ class SessionsAPI {
 }
 
 class API {
-  constructor(
-    private apiUrl = "http://176.113.82.100/index.php",
-    public token?: string
-  ) {}
+  private apiUrl = "http://176.113.82.100/index.php";
+  public token?: string;
+  constructor({ apiUrl, token }: { apiUrl?: string; token?: string } = {}) {
+    if (apiUrl) {
+      this.apiUrl = apiUrl;
+    }
+    if (token) {
+      this.token = token;
+    }
+  }
 
   public users = new UsersAPI(this);
   public sessions = new SessionsAPI(this);
