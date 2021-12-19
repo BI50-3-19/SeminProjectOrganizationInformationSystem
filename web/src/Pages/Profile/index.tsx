@@ -70,7 +70,14 @@ const ProfilePage = ({
 				>
 					Имя пользователя: {profile?.login}
 				</RichCell>
-				<CellButton before={<Icon28DoorArrowRightOutline />} mode="danger">
+				<CellButton
+					before={<Icon28DoorArrowRightOutline />}
+					mode="danger"
+					onClick={() => {
+						setSessionToken(null);
+						setProfileInfo(null);
+					}}
+				>
 					Выйти из аккаунта
 				</CellButton>
 			</Group>
