@@ -137,4 +137,6 @@ class API {
   }
 }
 
+export { APIError };
+
 export default API;

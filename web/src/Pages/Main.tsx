@@ -181,11 +181,13 @@ function MainPage({
 	};
 	const isDesktop = viewWidth >= ViewWidth.TABLET;
 	const hasHeader = platform !== VKCOM;
+	const [popout, setPopout] = React.useState<JSX.Element | null>(null);
 
 	return (
 		<SplitLayout
 			header={hasHeader && <PanelHeader separator={false} />}
 			style={{ justifyContent: "center" }}
+			popout={popout}
 		>
 			{isDesktop && (
 				<DesktopNavBar
@@ -230,7 +232,7 @@ function MainPage({
 								Профиль
 							</PanelHeader>
 							<Group >
-								<ProfilePage viewWidth={0}/>
+								<ProfilePage viewWidth={0} setPopout={setPopout}/>
 							</Group>
 						</Panel>
 					</View>

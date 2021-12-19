@@ -9,16 +9,24 @@ import {
   Input,
   Div,
   Spacing,
+  FormStatus,
+  ScreenSpinner,
 } from "@vkontakte/vkui";
 import { Icon56GhostOutline } from "@vkontakte/icons";
+
+import API, { APIError } from "../../TS/api";
 
 const AuthorizationPage = ({
   isRegister,
   setRegister,
+  setPopout,
+  setSessionToken,
 }: {
   viewWidth: number;
   isRegister: boolean;
   setRegister: React.Dispatch<React.SetStateAction<boolean>>;
+  setPopout: React.Dispatch<React.SetStateAction<JSX.Element | null>>;
+  setSessionToken: React.Dispatch<React.SetStateAction<string | null>>;
 }): JSX.Element => {
   const [login, setLogin] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
@@ -31,14 +39,99 @@ const AuthorizationPage = ({
     "error" | "valid"
   >();
 
+  const setLoad = (isLoad: boolean) => {
+    if (isLoad) {
+      setPopout(<ScreenSpinner />);
+    } else {
+      setPopout(null);
+    }
+  };
+
+  const [error, setError] = React.useState<{
+    status: boolean;
+    header: string;
+    text: string;
+  }>({
+    status: false,
+    header: "",
+    text: "",
+  });
+
   const isLoginValid = (): boolean =>
     /^(?=.*[A-Za-z0-9]$)[A-Za-z][A-Za-z\d.-_]{4,15}$/i.test(login);
   const isPasswordValid = (): boolean =>
     /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i.test(password);
 
+  const apiErrorHandler = (error: Error) => {
+    if (error instanceof APIError) {
+      if (error.code === 5) {
+        setError({
+          status: true,
+          header: "Неверные данные",
+          text: "Имя пользователя или пароль не соответствуют требованиям безопасности",
+        });
+      }
+      if (error.code === 6) {
+        setError({
+          status: true,
+          header: "Пользователь уже существует",
+          text: "Пользователь с таким именем уже существует",
+        });
+      }
+      if (error.code === 7) {
+        setError({
+          status: true,
+          header: "Неверные данные",
+          text: "Имя пользователя или пароль неверны",
+        });
+      }
+    } else {
+      setError({
+        status: true,
+        header: "Неизвестная ошибка",
+        text: "Необработанная ошибка, обратитесь к системному администратору",
+      });
+    }
+  };
+
+  const onSubmitForm = async () => {
+    setLoad(true);
+    const api = new API();
+
+    if (isRegister) {
+      const newUser = await api.users
+        .registration({ login, password })
+        .catch(apiErrorHandler);
+      if (newUser) {
+        const session = await api.sessions
+          .create({ login, password })
+          .catch(apiErrorHandler);
+        if (session) {
+          setSessionToken(session.token);
+        }
+      }
+    } else {
+      const session = await api.sessions
+        .create({ login, password })
+        .catch(apiErrorHandler);
+      if (session) {
+        setSessionToken(session.token);
+      }
+    }
+
+    setLoad(false);
+  };
+
   return (
     <Div>
       <FormLayout>
+        {error.status && (
+          <FormItem>
+            <FormStatus header={error.header} mode="error">
+              {error.text}
+            </FormStatus>
+          </FormItem>
+        )}
         <FormItem
           top="Имя пользователя"
           bottom={
@@ -55,6 +148,7 @@ const AuthorizationPage = ({
             onChange={(event) => {
               setLogin(event.target.value);
               setLoginFormStatus(isLoginValid() ? "valid" : "error");
+              setError({ status: false, header: "", text: "" });
             }}
             onBlur={() => {
               setLoginFormStatus(isLoginValid() ? "valid" : "error");
@@ -67,7 +161,7 @@ const AuthorizationPage = ({
           status={passwordFormStatus}
           bottom={
             isRegister &&
-            "Пароль может содержать только латинские буквы и цифры. Минимум 8 символов."
+            "Пароль может содержать только латинские буквы и цифры. От 8 до 15 символов."
           }
         >
           <Input
@@ -78,6 +172,7 @@ const AuthorizationPage = ({
             onChange={(event) => {
               setPassword(event.target.value);
               setPasswordFormStatus(isPasswordValid() ? "valid" : "error");
+              setError({ status: false, header: "", text: "" });
             }}
             onBlur={() => {
               setPasswordFormStatus(isPasswordValid() ? "valid" : "error");
@@ -116,6 +211,7 @@ const AuthorizationPage = ({
                 : !(isLoginValid() && isPasswordValid())
             }
             type="submit"
+            onClick={onSubmitForm}
           >
             {isRegister ? "Зарегистрироваться" : "Авторизоваться"}
           </Button>
@@ -138,7 +234,15 @@ const AdaptivityAuthorizationPage = withAdaptivity(AuthorizationPage, {
   viewWidth: true,
 });
 
-const LoginPage = ({ viewWidth = 0 }: { viewWidth: number }): JSX.Element => {
+const LoginPage = ({
+  viewWidth = 0,
+  setPopout,
+  setSessionToken,
+}: {
+  viewWidth: number;
+  setPopout: React.Dispatch<React.SetStateAction<JSX.Element | null>>;
+  setSessionToken: React.Dispatch<React.SetStateAction<string | null>>;
+}): JSX.Element => {
   const isDesktop = viewWidth >= ViewWidth.TABLET;
   const [showLogin, setShowLogin] = React.useState(false);
   const [isRegister, setRegister] = React.useState(false);
@@ -165,6 +269,8 @@ const LoginPage = ({ viewWidth = 0 }: { viewWidth: number }): JSX.Element => {
       viewWidth={0}
       isRegister={isRegister}
       setRegister={setRegister}
+      setPopout={setPopout}
+      setSessionToken={setSessionToken}
     />
   );
 };

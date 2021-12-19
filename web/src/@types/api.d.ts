@@ -27,6 +27,7 @@ declare namespace API {
             token: string;
             created: Date;
         }
+        
         interface InfoResponse {
             id: number;
             login: string;
