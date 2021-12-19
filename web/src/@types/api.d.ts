@@ -1,12 +1,18 @@
 declare namespace API {
     type RequestParams = Array<{ key: string; value: string; }>;
-
+    type RequiredToken = { token?: string };
     type SuccessResponse = { success: 1 };
 
     namespace Users {
         interface RegistrationParams {
             login: string;
             password: string;
+        }
+
+        interface GetResponse {
+            id: number;
+            login: string;
+            regDate: Date;
         }
     }
 
@@ -21,20 +27,11 @@ declare namespace API {
             token: string;
             created: Date;
         }
-
-        interface InfoParams {
-            token?: string;
-        }
-
         interface InfoResponse {
             id: number;
             login: string;
             created: Date;
             ip: string;
-        }
-
-        interface ResetParams {
-            token?: string;
         }
     }
 }

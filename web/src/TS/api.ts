@@ -47,7 +47,21 @@ class UsersAPI {
     login,
     password,
   }: API.Users.RegistrationParams): Promise<API.SuccessResponse> {
-    return this.api.call("users.get", { login, password });
+    return this.api.call("users.registration", { login, password });
+  }
+
+  public async get({
+    token,
+  }: API.RequiredToken): Promise<API.Users.GetResponse> {
+    const response = await this.api.call("users.get", {
+      token: token || this.api.token || "",
+    });
+
+    return {
+      ...response,
+      id: Number(response.id),
+      regDate: moment(response.regDate, "YYYY-MM-DD HH:mm:ss").toDate(),
+    };
   }
 }
 
@@ -71,7 +85,7 @@ class SessionsAPI {
 
   public async info({
     token,
-  }: API.Sessions.InfoParams): Promise<API.Sessions.InfoResponse> {
+  }: API.RequiredToken): Promise<API.Sessions.InfoResponse> {
     const response = await this.api.call("sessions.info", {
       token: token || this.api.token || "",
     });
@@ -85,8 +99,8 @@ class SessionsAPI {
 
   public async reset({
     token,
-  }: API.Sessions.ResetParams): Promise<API.SuccessResponse> {
-    return this.api.call("sessions.info", {
+  }: API.RequiredToken): Promise<API.SuccessResponse> {
+    return this.api.call("sessions.reset", {
       token: token || this.api.token || "",
     });
   }
